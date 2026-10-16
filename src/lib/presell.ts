@@ -28,9 +28,10 @@ export const HEADLINES = {
   },
 } as const;
 
+/* Message match: the "plans" CTA lands directly on the pricing section of the main site. */
 export const CTAS = {
-  "1": "Conhecer o ArbiFlow",
-  "2": "Ver planos de lançamento",
+  "1": { text: "Conhecer o ArbiFlow", path: "" },
+  "2": { text: "Ver planos de lançamento", path: "#planos" },
 } as const;
 
 export type HeadlineId = keyof typeof HEADLINES;

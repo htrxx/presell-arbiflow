@@ -13,47 +13,6 @@ export const SALE = [
   { k: "Custo do produto (lote)", v: "− R$ 224,99", c: "text-danger" },
 ];
 
-/** Hero visual: a sale being broken down into the real profit, line by line. */
-export function CalcCard() {
-  return (
-    <div className="card glow-border relative w-full max-w-md p-5 sm:p-6">
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">Venda #2000015491499505</p>
-        <span className="flex items-center gap-1.5 rounded-full border border-cyan/30 bg-cyan/10 px-2 py-0.5 text-[11px] text-cyan">
-          <Calculator className="h-3 w-3" aria-hidden /> calculado
-        </span>
-      </div>
-      <ul className="mt-4 flex flex-col tabular-nums text-sm">
-        {SALE.map((l, i) => (
-          <motion.li
-            key={l.k}
-            className="flex justify-between gap-3 border-b border-line-soft py-2.5 last:border-0"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.45, ease, delay: 0.5 + i * 0.28 }}
-          >
-            <span className="text-muted">{l.k}</span>
-            <span className={`shrink-0 ${l.c}`}>{l.v}</span>
-          </motion.li>
-        ))}
-      </ul>
-      <motion.div
-        className="mt-3 flex items-end justify-between rounded-xl border border-profit/30 bg-profit/10 px-4 py-3"
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease, delay: 0.5 + SALE.length * 0.28 }}
-      >
-        <span className="text-sm font-semibold text-text">Lucro real</span>
-        <span className="text-right tabular-nums">
-          <span className="block font-display text-2xl font-semibold text-profit">+R$ 71,82</span>
-          <span className="text-xs text-muted">ROI 31,9%</span>
-        </span>
-      </motion.div>
-      <p className="mt-3 text-[11px] text-muted/80">Exemplo ilustrativo da demonstração do ArbiFlow.</p>
-    </div>
-  );
-}
-
 const PHASES = [
   { icon: ScanBarcode, label: "Escaneia" },
   { icon: PackagePlus, label: "Estoque" },

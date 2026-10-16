@@ -1,34 +1,18 @@
 "use client";
 
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import {
-  Boxes,
-  ClipboardList,
-  DollarSign,
-  FileSpreadsheet,
-  FileText,
-  Layers,
-  Lock,
-  Plus,
-  Receipt,
-  ScanBarcode,
-  Store,
-  Truck,
-  Plug,
-  ChartNoAxesCombined,
-  Quote,
-} from "lucide-react";
+import { Bell, ClipboardList, FileSpreadsheet, FileText, Layers, Lock, Plus, Quote, Receipt, Store } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { BrowserFrame, Logo, Reveal, SectionHeading, ease } from "@/components/ui/primitives";
 import { CTAS, HEADLINES, type CtaId, type HeadlineId } from "@/lib/presell";
 import { track } from "@/lib/tracking";
 import Analytics from "./Analytics";
+import { ProfitCalculator } from "./Calculator";
 import { CtaLink } from "./CtaLink";
-import { CalcCard, FlowDemo } from "./Demos";
+import { FlowDemo } from "./Demos";
 
 const PAINS = [
-  { icon: Receipt, t: "Abrir venda por venda para achar a comissão e a tarifa cobradas." },
-  { icon: Truck, t: "Somar o frete que saiu do seu bolso em cada envio." },
+  { icon: Receipt, t: "Abrir venda por venda para achar comissão, tarifa e frete." },
   { icon: ClipboardList, t: "Lembrar quanto pagou em cada lote — com frete, taxas e impostos." },
   { icon: FileSpreadsheet, t: "Atualizar a planilha de estoque toda vez que uma compra chega." },
   { icon: Layers, t: "Repetir tudo isso para cada conta de marketplace." },
@@ -36,79 +20,41 @@ const PAINS = [
 
 const STEPS = [
   {
-    icon: Plug,
     t: "Conecte sua conta",
-    d: "Seus produtos e vendas são importados automaticamente pela API oficial do marketplace. Sem recadastrar anúncio.",
+    d: "Produtos e vendas chegam automaticamente pela API oficial do marketplace.",
   },
   {
-    icon: ScanBarcode,
-    t: "Escaneie e registre o custo",
-    d: "Aponte a câmera do celular para o código de barras: o produto entra no estoque com lote, custo e quantidade.",
+    t: "Escaneie o código de barras",
+    d: "Pela câmera do celular, o produto entra no estoque com lote, custo e quantidade.",
   },
   {
-    icon: ChartNoAxesCombined,
     t: "Veja o lucro real",
-    d: "Cada venda aparece com comissão, tarifa, frete e custo do produto já descontados — além de margem e ROI.",
+    d: "Cada venda aparece com comissão, tarifa, frete e custo descontados, além de margem e ROI.",
   },
 ];
 
-const BENEFITS = [
-  {
-    icon: DollarSign,
-    t: "Lucro real, venda por venda",
-    d: "Não é estimativa: o cálculo cruza cada pedido com o custo do lote que você cadastrou.",
-  },
-  {
-    icon: ScanBarcode,
-    t: "Estoque sem digitação",
-    d: "Entrada de mercadoria pelo scanner do celular. Disponível, a caminho e custo médio sempre atualizados.",
-  },
-  {
-    icon: Store,
-    t: "Várias contas, um estoque",
-    d: "Vendeu em uma conta? A baixa acontece no estoque compartilhado e todas ficam sincronizadas.",
-  },
-  {
-    icon: FileText,
-    t: "Fechamento do mês pronto",
-    d: "DRE com receita, custo das mercadorias, comissões, fretes e despesas até o lucro líquido.",
-  },
-];
-
-const SCREENS = [
-  { id: "vendas", label: "Vendas & Envios", text: "Cada pedido com custo, margem e ROI ao lado, e status de envio em 1 clique." },
-  { id: "estoque", label: "Estoque", text: "Disponível, a caminho, custo médio e valor total por SKU, com alerta de estoque baixo." },
-  { id: "fechamento", label: "Fechamento", text: "DRE mensal do faturamento bruto ao lucro líquido real, pronto para imprimir." },
+const EXTRAS = [
+  { icon: Store, t: "Várias contas, um estoque só" },
+  { icon: FileText, t: "DRE do mês pronto para imprimir" },
+  { icon: Bell, t: "Cada venda notificada no celular" },
 ];
 
 const FAQ = [
-  {
-    q: "Como o ArbiFlow calcula o lucro real?",
-    a: "Para cada venda, ele desconta a comissão e as tarifas do marketplace, o frete pago pelo vendedor e o custo do produto que você cadastrou. Despesas operacionais e embalagens entram no fechamento mensal.",
-  },
   {
     q: "Preciso cadastrar meus produtos manualmente?",
     a: "Não. Ao conectar sua conta, produtos e vendas são importados automaticamente do marketplace. Você só cadastra os custos, quando necessário, para o cálculo do lucro real.",
   },
   {
-    q: "Como funciona o scanner?",
-    a: "Pelo celular: você aponta a câmera para o código de barras e o produto entra no estoque com lote, custo e quantidade, sem precisar digitar.",
-  },
-  {
-    q: "Para quem o ArbiFlow foi feito?",
-    a: "Para pequenos e médios vendedores de marketplace — inclusive quem trabalha com arbitragem ou importação e precisa saber o custo real de cada lote. Ele nasceu dentro de uma operação de arbitragem.",
-  },
-  {
-    q: "Consigo usar com mais de uma conta?",
-    a: "Sim, em qualquer plano. Você conecta várias contas, alterna entre elas em um clique e compartilha o mesmo estoque físico, com sincronização a cada venda.",
+    q: "O cálculo usa as taxas reais de cada venda?",
+    a: "Sim. Para cada venda, o ArbiFlow desconta a comissão e as tarifas do marketplace, o frete pago por você e o custo do produto que você cadastrou. Despesas operacionais e embalagens entram no fechamento mensal.",
   },
   {
     q: "Meus dados estão seguros?",
     a: "A conexão com o marketplace é feita pela API oficial, com uma autorização que você pode revogar a qualquer momento. O ArbiFlow não tem acesso à sua senha.",
   },
   {
-    q: "Quanto custa e como eu começo?",
-    a: "Há dois planos, Standard e Pro, com preço promocional de lançamento a partir de R$ 19,90/mês. No site oficial você vê o que cada plano inclui, escolhe o seu e conclui o cadastro e o pagamento.",
+    q: "Quanto custa?",
+    a: "Há dois planos, Standard e Pro, com preço promocional de lançamento a partir de R$ 19,90/mês. Multicontas com estoque sincronizado está incluso em todos.",
   },
 ];
 
@@ -118,12 +64,11 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 
 export default function Presell({ headline, cta, variant }: { headline: HeadlineId; cta: CtaId; variant: string }) {
   const h = HEADLINES[headline];
-  const ctaText = CTAS[cta];
+  const { text: ctaText, path: ctaPath } = CTAS[cta];
   const heroRef = useRef<HTMLElement>(null);
   const finalRef = useRef<HTMLElement>(null);
   const [showSticky, setShowSticky] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [screen, setScreen] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Sticky CTA on phones: visible after the hero, hidden while the final CTA is on screen.
   useEffect(() => {
@@ -140,6 +85,12 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
     return () => io.disconnect();
   }, []);
 
+  const renderCta = (position: string, className?: string) => (
+    <CtaLink position={position} variant={variant} path={ctaPath} className={className}>
+      {ctaText}
+    </CtaLink>
+  );
+
   return (
     <MotionConfig reducedMotion="user">
       <Analytics variant={variant} angle={h.angle} />
@@ -154,7 +105,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
       </header>
 
       <main>
-        {/* 1 — GANCHO */}
+        {/* 1 — GANCHO + CALCULADORA (micro-compromisso: o visitante vê o problema nos próprios números) */}
         <section ref={heroRef} className="relative overflow-hidden pb-16 pt-24 sm:pb-24 sm:pt-32">
           <div
             className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_70%_20%,rgba(31,107,255,0.22),transparent_70%),radial-gradient(40%_40%_at_10%_80%,rgba(69,227,255,0.08),transparent_70%)]"
@@ -189,19 +140,14 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease, delay: 0.22 }}
               >
-                <CtaLink position="hero" variant={variant}>
-                  {ctaText}
-                </CtaLink>
-                <p className="text-sm text-muted">
-                  Veja as telas reais e os planos no site oficial.{" "}
-                  <a
-                    href="#como-funciona"
-                    onClick={() => track("presell_anchor_click", { target: "como-funciona", variant })}
-                    className="text-text underline decoration-line underline-offset-4 hover:decoration-cyan"
-                  >
-                    Ou entenda como funciona ↓
-                  </a>
-                </p>
+                {renderCta("hero")}
+                <a
+                  href="#calculadora"
+                  onClick={() => track("presell_anchor_click", { target: "calculadora", variant })}
+                  className="text-sm text-muted underline decoration-line underline-offset-4 hover:text-text hover:decoration-cyan lg:hidden"
+                >
+                  Ou faça o teste com a sua última venda ↓
+                </a>
               </motion.div>
             </div>
             <motion.div
@@ -210,7 +156,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, ease, delay: 0.2 }}
             >
-              <CalcCard />
+              <ProfitCalculator variant={variant} />
             </motion.div>
           </div>
         </section>
@@ -223,10 +169,10 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                 align="left"
                 title={
                   <>
-                    Descobrir quanto sobrou <span className="text-gradient">não deveria dar tanto trabalho.</span>
+                    Fazer essa conta à mão, <span className="text-gradient">venda por venda, cansa.</span>
                   </>
                 }
-                subtitle="Se hoje o seu lucro depende de uma planilha, provavelmente a sua rotina é parecida com esta:"
+                subtitle="E é aí que o lucro some sem ninguém perceber. Se o seu controle é uma planilha, a rotina deve ser esta:"
               />
               <Reveal delay={0.1}>
                 <figure className="rounded-2xl border border-line-soft bg-surface/60 p-5">
@@ -254,70 +200,47 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                   <span className="text-[15px] leading-snug">{p.t}</span>
                 </motion.li>
               ))}
-              <li className="px-1 pt-2 text-sm text-muted">
-                Funciona — até a operação crescer. Aí a planilha vira o gargalo.
-              </li>
             </ul>
           </div>
         </section>
 
-        {/* 3 — SOLUÇÃO */}
+        {/* 3 — SOLUÇÃO + DEMONSTRAÇÃO */}
         <section id="como-funciona" className="relative py-20 sm:py-28">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <SectionHeading
-              title={
-                <>
-                  O ArbiFlow faz essa conta <span className="text-gradient">por você.</span>
-                </>
-              }
-              subtitle="Uma plataforma que junta vendas, estoque físico, compras e finanças — e calcula o lucro real de cada pedido."
-            />
-            <ol className="mt-14 grid gap-4 md:grid-cols-3">
-              {STEPS.map((s, i) => (
-                <motion.li
-                  key={s.t}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.6, ease, delay: i * 0.1 }}
-                  className="card relative p-6"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-brand/30 bg-brand/10">
-                      <s.icon className="h-5 w-5 text-brand-2" aria-hidden />
-                    </span>
-                    <span className="font-display text-4xl font-semibold tabular-nums text-line">0{i + 1}</span>
-                  </div>
-                  <h3 className="mt-5 font-display text-xl font-semibold">{s.t}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{s.d}</p>
-                </motion.li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        {/* 5 — DEMONSTRAÇÃO (antes dos benefícios: mostrar antes de listar) */}
-        <section className="relative py-20 sm:py-28">
           <div
             className="pointer-events-none absolute inset-x-0 top-1/4 -z-10 mx-auto h-[420px] max-w-4xl rounded-full bg-brand/10 blur-[120px]"
             aria-hidden
           />
           <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-2">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-8">
               <SectionHeading
                 align="left"
                 title={
                   <>
-                    Do código de barras <span className="text-gradient">ao lucro no bolso.</span>
+                    O ArbiFlow faz essa conta <span className="text-gradient">por você.</span>
                   </>
                 }
-                subtitle="Veja o caminho de um produto dentro do ArbiFlow: ele entra pelo scanner, é vendido e o lucro aparece calculado — sem planilha no meio."
+                subtitle="Do código de barras ao lucro de cada venda, sem planilha no meio."
               />
-              <Reveal delay={0.1} className="hidden lg:block">
-                <CtaLink position="demo" variant={variant}>
-                  {ctaText}
-                </CtaLink>
-              </Reveal>
+              <ol className="flex flex-col gap-5">
+                {STEPS.map((s, i) => (
+                  <motion.li
+                    key={s.t}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.5, ease, delay: i * 0.08 }}
+                    className="flex gap-4"
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand/50 bg-brand/15 font-display text-sm font-semibold tabular-nums text-brand-2">
+                      {i + 1}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-lg font-semibold">{s.t}</h3>
+                      <p className="mt-0.5 text-sm leading-relaxed text-muted">{s.d}</p>
+                    </div>
+                  </motion.li>
+                ))}
+              </ol>
             </div>
             <Reveal delay={0.1}>
               <FlowDemo />
@@ -325,103 +248,48 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           </div>
         </section>
 
-        {/* 4 — BENEFÍCIOS */}
+        {/* 4 — PROVA: tela real + o que mais vem junto */}
         <section className="relative py-20 sm:py-28">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <SectionHeading
               title={
                 <>
-                  Menos tempo calculando. <span className="text-gradient">Mais clareza para decidir.</span>
+                  Não é promessa. <span className="text-gradient">É a tela de vendas real.</span>
                 </>
               }
+              subtitle="Cada pedido com custo, margem e ROI ao lado, e o status de envio em 1 clique."
             />
-            <ul className="mt-14 grid gap-4 sm:grid-cols-2">
-              {BENEFITS.map((b, i) => (
-                <motion.li
-                  key={b.t}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.5, ease, delay: i * 0.07 }}
-                  className="flex gap-4 rounded-2xl border border-line-soft bg-surface/60 p-5"
+            <Reveal className="mt-12">
+              <BrowserFrame
+                src="/screens/vendas.webp"
+                alt="Tela Vendas & Envios do ArbiFlow com lucro, margem e ROI por pedido"
+                url="app.arbiflow.com.br/vendas"
+                scrollable
+              />
+              <p className="mt-3 text-center text-xs text-muted md:hidden">Arraste para o lado para ver a tela inteira</p>
+            </Reveal>
+            <ul className="mt-8 flex flex-wrap justify-center gap-2">
+              {EXTRAS.map((e) => (
+                <li
+                  key={e.t}
+                  className="flex items-center gap-2 rounded-full border border-line-soft bg-surface/60 px-4 py-2 text-sm"
                 >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-brand/30 bg-brand/10">
-                    <b.icon className="h-5 w-5 text-brand-2" aria-hidden />
-                  </span>
-                  <div>
-                    <h3 className="font-display text-lg font-semibold">{b.t}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-muted">{b.d}</p>
-                  </div>
-                </motion.li>
+                  <e.icon className="h-4 w-4 text-brand-2" aria-hidden />
+                  {e.t}
+                </li>
               ))}
             </ul>
-
-            {/* Telas reais */}
-            <div className="mt-16">
-              <div
-                role="tablist"
-                aria-label="Telas reais do ArbiFlow"
-                className="mx-auto flex max-w-full gap-1 overflow-x-auto rounded-2xl border border-line bg-surface/70 p-1.5 [scrollbar-width:none] sm:w-fit"
-              >
-                {SCREENS.map((s, i) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={screen === i}
-                    aria-controls="presell-screen"
-                    onClick={() => {
-                      setScreen(i);
-                      track("presell_screen_view", { screen: s.id, variant });
-                    }}
-                    className={`relative flex min-h-11 shrink-0 items-center gap-2 rounded-xl px-4 py-2 text-sm transition-colors ${
-                      screen === i ? "text-text" : "text-muted hover:text-text"
-                    }`}
-                  >
-                    {screen === i && (
-                      <motion.span
-                        layoutId="presell-tab"
-                        className="absolute inset-0 rounded-xl border border-brand/40 bg-brand/15"
-                        transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                      />
-                    )}
-                    <span className="relative flex items-center gap-2">
-                      {i === 0 ? <Truck className="h-4 w-4" /> : i === 1 ? <Boxes className="h-4 w-4" /> : <FileText className="h-4 w-4" />}
-                      {s.label}
-                    </span>
-                  </button>
-                ))}
-              </div>
-              <div id="presell-screen" role="tabpanel" className="mt-6">
-                <p className="mx-auto max-w-xl text-center text-sm text-muted">{SCREENS[screen].text}</p>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={SCREENS[screen].id}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, transition: { duration: 0.15 } }}
-                    transition={{ duration: 0.4, ease }}
-                    className="mt-6"
-                  >
-                    <BrowserFrame
-                      src={`/screens/${SCREENS[screen].id}.webp`}
-                      alt={`Tela ${SCREENS[screen].label} do ArbiFlow`}
-                      url={`app.arbiflow.com.br/${SCREENS[screen].id}`}
-                      scrollable
-                    />
-                  </motion.div>
-                </AnimatePresence>
-                <p className="mt-3 text-center text-xs text-muted md:hidden">Telas reais da plataforma · arraste para o lado</p>
-              </div>
+            <div className="mt-10 flex justify-center">
+              {renderCta("proof")}
             </div>
           </div>
         </section>
 
-        {/* 6 — OBJEÇÕES */}
+        {/* 5 — OBJEÇÕES */}
         <section className="relative py-20 sm:py-28">
           <div className="mx-auto max-w-3xl px-4 sm:px-6">
-            <SectionHeading title="Antes de clicar, você deve estar se perguntando…" />
-            <div className="mt-12 flex flex-col gap-3">
+            <SectionHeading title="Antes de clicar" />
+            <div className="mt-10 flex flex-col gap-3">
               {FAQ.map((f, i) => {
                 const isOpen = openFaq === i;
                 return (
@@ -467,7 +335,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           </div>
         </section>
 
-        {/* 7 — CTA FINAL */}
+        {/* 6 — CTA FINAL */}
         <section ref={finalRef} className="relative overflow-hidden px-4 py-24 sm:px-6 sm:py-32">
           <div
             className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(50%_60%_at_50%_100%,rgba(31,107,255,0.28),transparent_70%)]"
@@ -476,15 +344,13 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <Eyebrow>Preço de lançamento por tempo limitado</Eyebrow>
             <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
-              Descubra quanto a sua operação <span className="text-gradient">realmente lucra.</span>
+              Você fez a conta de uma venda. <span className="text-gradient">Veja todas as outras.</span>
             </h2>
             <p className="mt-5 max-w-xl text-muted text-pretty sm:text-lg">
-              No site oficial você vê todas as telas, compara os planos — a partir de R$ 19,90/mês no lançamento — e
-              escolhe o seu. Conecte a conta, cadastre seus custos e veja o lucro real das próximas vendas.
+              Conheça as telas, compare os planos — a partir de R$ 19,90/mês no lançamento — e conecte sua conta para ver
+              o lucro real das próximas vendas.
             </p>
-            <CtaLink position="final" variant={variant} className="mt-9">
-              {ctaText}
-            </CtaLink>
+            {renderCta("final", "mt-9")}
             <p className="mt-4 text-xs text-muted">Você será direcionado ao site oficial do ArbiFlow.</p>
           </Reveal>
         </section>
@@ -509,9 +375,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
             transition={{ duration: 0.35, ease }}
             className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-ink/90 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl sm:hidden"
           >
-            <CtaLink position="sticky" variant={variant}>
-              {ctaText}
-            </CtaLink>
+            {renderCta("sticky")}
           </motion.div>
         )}
       </AnimatePresence>
