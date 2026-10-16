@@ -1,22 +1,16 @@
 "use client";
 
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import { Bell, ClipboardList, FileSpreadsheet, FileText, Layers, Lock, Plus, Quote, Receipt, Store } from "lucide-react";
+import { Bell, FileText, Lock, Plus, Store } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { BrowserFrame, Logo, Reveal, SectionHeading, ease } from "@/components/ui/primitives";
 import { CTAS, HEADLINES, type CtaId, type HeadlineId } from "@/lib/presell";
 import { track } from "@/lib/tracking";
 import Analytics from "./Analytics";
 import { ProfitCalculator } from "./Calculator";
+import SpatialShowcaseSection from "./Comparison";
 import { CtaLink } from "./CtaLink";
 import { FlowDemo } from "./Demos";
-
-const PAINS = [
-  { icon: Receipt, t: "Abrir venda por venda para achar comissão, tarifa e frete." },
-  { icon: ClipboardList, t: "Lembrar quanto pagou em cada lote — com frete, taxas e impostos." },
-  { icon: FileSpreadsheet, t: "Atualizar a planilha de estoque toda vez que uma compra chega." },
-  { icon: Layers, t: "Repetir tudo isso para cada conta de marketplace." },
-];
 
 const STEPS = [
   {
@@ -161,47 +155,19 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           </div>
         </section>
 
-        {/* 2 — PROBLEMA */}
+        {/* 2 — PROBLEMA × SOLUÇÃO: comparativo interativo planilhas/outros sistemas vs ArbiFlow */}
         <section className="relative py-20 sm:py-28">
-          <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16">
-            <div className="flex flex-col gap-6">
-              <SectionHeading
-                align="left"
-                title={
-                  <>
-                    Fazer essa conta à mão, <span className="text-gradient">venda por venda, cansa.</span>
-                  </>
-                }
-                subtitle="E é aí que o lucro some sem ninguém perceber. Se o seu controle é uma planilha, a rotina deve ser esta:"
-              />
-              <Reveal delay={0.1}>
-                <figure className="rounded-2xl border border-line-soft bg-surface/60 p-5">
-                  <Quote className="h-5 w-5 text-cyan" aria-hidden />
-                  <blockquote className="mt-2 font-display text-lg font-medium text-pretty">
-                    “Vendíamos em marketplace e o painel dizia que estava tudo ótimo. A conta bancária discordava.”
-                  </blockquote>
-                  <figcaption className="mt-2 text-sm text-muted">Como o ArbiFlow começou, segundo a própria equipe</figcaption>
-                </figure>
-              </Reveal>
-            </div>
-            <ul className="flex flex-col gap-3 self-center">
-              {PAINS.map((p, i) => (
-                <motion.li
-                  key={p.t}
-                  initial={{ opacity: 0, x: 16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.5, ease, delay: i * 0.07 }}
-                  className="flex items-center gap-4 rounded-2xl border border-line-soft bg-surface/60 p-4"
-                >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-danger/30 bg-danger/10">
-                    <p.icon className="h-5 w-5 text-danger" aria-hidden />
-                  </span>
-                  <span className="text-[15px] leading-snug">{p.t}</span>
-                </motion.li>
-              ))}
-            </ul>
+          <div className="mx-auto mb-10 max-w-6xl px-4 sm:px-6">
+            <SectionHeading
+              title={
+                <>
+                  Planilha, sistema genérico <span className="text-gradient">ou ArbiFlow?</span>
+                </>
+              }
+              subtitle="Veja onde o seu tempo vai embora hoje — e como fica quando o sistema faz as contas por você."
+            />
           </div>
+          <SpatialShowcaseSection variant={variant} renderCta={renderCta} />
         </section>
 
         {/* 3 — SOLUÇÃO + DEMONSTRAÇÃO */}
