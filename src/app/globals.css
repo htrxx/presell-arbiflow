@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #05070d;
+  --color-surface: #0a0f1c;
+  --color-surface-2: #0f1628;
+  --color-line: #1a2440;
+  --color-line-soft: #131b31;
+  --color-text: #e8edf7;
+  --color-muted: #8a97b4;
+  --color-brand: #1f6bff;
+  --color-brand-2: #3b82ff;
+  --color-cyan: #45e3ff;
+  --color-profit: #22c55e;
+  --color-warn: #f59e0b;
+  --color-danger: #ef4444;
+
+  /* shadcn-style semantic tokens (used by components/ui), mapped to the ArbiFlow palette.
+     Note: `muted` stays the site's muted text color; shadcn's muted background uses surface. */
+  --color-background: #05070d;
+  --color-foreground: #e8edf7;
+  --color-primary: #1f6bff;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #0f1628;
+  --color-secondary-foreground: #e8edf7;
+  --color-muted-foreground: #8a97b4;
+  --color-accent: #0f1628;
+  --color-accent-foreground: #e8edf7;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #1a2440;
+  --color-input: #1a2440;
+  --color-ring: #45e3ff;
+
+  /* SF Pro on Apple devices (system font); Inter, its closest open equivalent, everywhere else. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", var(--font-inter), "Segoe UI", Roboto, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro", var(--font-inter), "Segoe UI", Roboto, sans-serif;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-scan: scan 2.6s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes scan {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(var(--scan-distance, 120px)); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-brand) 45%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+@layer components {
+.text-gradient {
+  background: linear-gradient(100deg, #ffffff 10%, #9fc2ff 45%, var(--color-cyan) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--color-surface-2) 92%, white 2%), var(--color-surface));
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+}
+
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(140deg, color-mix(in oklab, var(--color-cyan) 70%, transparent), transparent 35%, transparent 65%, color-mix(in oklab, var(--color-brand) 70%, transparent));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-marquee, .animate-scan { animation: none !important; }
+}
