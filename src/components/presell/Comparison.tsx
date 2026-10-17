@@ -16,7 +16,7 @@ import {
   Layers,
   PackageX,
   Receipt,
-  RefreshCw,
+  ShieldCheck,
   ScanBarcode,
   Settings2,
   Sparkles,
@@ -114,7 +114,7 @@ const PLANILHAS: ShowcaseSide<Side> = {
     { icon: Keyboard, title: "Compra do fornecedor digitada item a item." },
     { icon: Unlink, title: "Venda sem custo lançado: margem distorcida." },
     { icon: TrendingDown, title: "Fechamento do mês que nunca bate." },
-    { icon: Boxes, title: "Estoque desatualizado entre contas." },
+    { icon: Boxes, title: "Anúncio irmão ativo: venda sem estoque e cancelamento." },
     { icon: Settings2, title: "Sistema genérico: menus demais, sem custo por lote." },
   ],
 };
@@ -147,9 +147,9 @@ const ARBIFLOW: ShowcaseSide<Side> = {
       text: "Bipou a etiqueta: ele confere o pedido e fala o item em voz alta.",
     },
     {
-      icon: RefreshCw,
-      title: "Multicontas Mercado Livre",
-      text: "Todas as contas em um painel, sincronizadas sozinhas.",
+      icon: ShieldCheck,
+      title: "Zero-Stock Shield",
+      text: "Vendeu o último? Anúncios irmãos pausados na hora, em todas as contas.",
     },
     {
       icon: Clock,

@@ -8,7 +8,7 @@
  */
 
 export const PRESELL_DESTINATION =
-  process.env.NEXT_PUBLIC_PRESELL_DESTINATION || "https://arbiflow-site.vercel.app/";
+  process.env.NEXT_PUBLIC_PRESELL_DESTINATION || "https://arbiflow.com.br/presell";
 
 export const HEADLINES = {
   a: {
@@ -31,7 +31,7 @@ export const HEADLINES = {
 /* Message match: the "plans" CTA lands directly on the pricing section of the main site. */
 export const CTAS = {
   "1": { text: "Conhecer o ArbiFlow", path: "" },
-  "2": { text: "Ver planos de lançamento", path: "#planos" },
+  "2": { text: "Ver planos", path: "#planos" },
 } as const;
 
 export type HeadlineId = keyof typeof HEADLINES;

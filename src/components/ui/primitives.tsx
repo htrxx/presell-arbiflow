@@ -106,6 +106,8 @@ export function BrowserFrame({
   className = "",
   url = "app.arbiflow.com.br",
   scrollable = false,
+  width = 2000,
+  height = 940,
 }: {
   src: string;
   alt: string;
@@ -114,6 +116,8 @@ export function BrowserFrame({
   url?: string;
   /** On small screens, show the screenshot larger with horizontal scrolling so details stay readable. */
   scrollable?: boolean;
+  width?: number;
+  height?: number;
 }) {
   return (
     <div
@@ -134,8 +138,8 @@ export function BrowserFrame({
         <Image
           src={src}
           alt={alt}
-          width={2000}
-          height={940}
+          width={width}
+          height={height}
           priority={priority}
           sizes={scrollable ? "(max-width: 768px) 820px, 1100px" : "(max-width: 768px) 100vw, 1100px"}
           className={`block h-auto ${scrollable ? "w-[820px] max-w-none md:w-full md:max-w-full" : "w-full"}`}

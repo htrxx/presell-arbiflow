@@ -1,16 +1,18 @@
 "use client";
 
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import { Bell, FileText, Lock, Plus, Store } from "lucide-react";
+import { Lock, Plus, ShieldCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { BrowserFrame, Logo, Reveal, SectionHeading, ease } from "@/components/ui/primitives";
 import { CTAS, HEADLINES, type CtaId, type HeadlineId } from "@/lib/presell";
 import { track } from "@/lib/tracking";
 import Analytics from "./Analytics";
+import BipFala from "./BipFala";
 import { ProfitCalculator } from "./Calculator";
 import SpatialShowcaseSection from "./Comparison";
 import { CtaLink } from "./CtaLink";
 import { FlowDemo } from "./Demos";
+import RoiSimulator from "./RoiSimulator";
 
 const STEPS = [
   {
@@ -27,12 +29,6 @@ const STEPS = [
   },
 ];
 
-const EXTRAS = [
-  { icon: Store, t: "Multicontas, um estoque" },
-  { icon: FileText, t: "DRE do mês pronto" },
-  { icon: Bell, t: "Venda notificada no celular" },
-];
-
 const FAQ = [
   {
     q: "Preciso cadastrar produtos?",
@@ -44,11 +40,15 @@ const FAQ = [
   },
   {
     q: "É seguro?",
-    a: "Conexão pela API oficial, sem acesso à sua senha. Você revoga quando quiser.",
+    a: "Homologado com a API oficial do Mercado Livre, sem acesso à sua senha. Você revoga quando quiser.",
   },
   {
     q: "Quanto custa?",
-    a: "A partir de R$ 19,90/mês no preço de lançamento. Multicontas em todos os planos.",
+    a: "A partir de R$ 79/mês no plano anual (R$ 97 no mensal).",
+  },
+  {
+    q: "E se eu não gostar?",
+    a: "7 dias de garantia incondicional. Um clique e o dinheiro volta.",
   },
 ];
 
@@ -126,7 +126,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
               >
                 <span className="text-text">Bipe o código de barras</span>: o produto entra no estoque.{" "}
                 <span className="text-text">Mande um print</span>: a IA lança a compra.{" "}
-                <span className="text-text">Venda feita</span>: o lucro real aparece sozinho.
+                <span className="text-text">Vendeu o último</span>: o Zero-Stock Shield pausa os anúncios irmãos.
               </motion.p>
               <motion.div
                 className="mt-8 flex w-full flex-col gap-3 sm:w-auto"
@@ -142,6 +142,14 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                 >
                   Ou teste com a sua venda ↓
                 </a>
+                <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
+                  <span className="flex items-center gap-1.5">
+                    <ShieldCheck className="h-3.5 w-3.5 text-profit" aria-hidden /> API oficial do Mercado Livre
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <ShieldCheck className="h-3.5 w-3.5 text-profit" aria-hidden /> 7 dias de garantia
+                  </span>
+                </p>
               </motion.div>
             </div>
             <motion.div
@@ -213,7 +221,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           </div>
         </section>
 
-        {/* 4 — PROVA: tela real + o que mais vem junto */}
+        {/* 4 — PROVA: tela real de vendas com o lucro de cada pedido */}
         <section className="relative py-20 sm:py-28">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <SectionHeading
@@ -222,35 +230,49 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                   Não é promessa. <span className="text-gradient">É a tela real.</span>
                 </>
               }
-              subtitle="Custo, margem e ROI em cada pedido."
+              subtitle="Lucro real, margem e ROI em cada pedido."
             />
             <Reveal className="mt-12">
               <BrowserFrame
-                src="/screens/vendas.webp"
-                alt="Tela Vendas & Envios do ArbiFlow com lucro, margem e ROI por pedido"
-                url="app.arbiflow.com.br/vendas"
+                src="/screens/app-vendas.webp"
+                alt="Tela Vendas & Envios do ArbiFlow com lucro real, margem e ROI por pedido"
+                url="arbiflow.com.br/vendas"
+                width={1600}
+                height={1000}
                 scrollable
               />
               <p className="mt-3 text-center text-xs text-muted md:hidden">Arraste para o lado para ver a tela inteira</p>
             </Reveal>
-            <ul className="mt-8 flex flex-wrap justify-center gap-2">
-              {EXTRAS.map((e) => (
-                <li
-                  key={e.t}
-                  className="flex items-center gap-2 rounded-full border border-line-soft bg-surface/60 px-4 py-2 text-sm"
-                >
-                  <e.icon className="h-4 w-4 text-brand-2" aria-hidden />
-                  {e.t}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-10 flex justify-center">
-              {renderCta("proof")}
-            </div>
           </div>
         </section>
 
-        {/* 5 — OBJEÇÕES */}
+        {/* 5 — BIP & FALA: tela real + bipe animado + prévia de voz */}
+        <section id="bip-e-fala" className="relative py-20 sm:py-28">
+          <BipFala variant={variant} />
+        </section>
+
+        {/* 6 — SIMULADOR DE RETORNO */}
+        <section className="relative py-20 sm:py-28">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="mx-auto mb-10 flex max-w-3xl flex-col items-center text-center">
+              <Eyebrow>Simulador de retorno</Eyebrow>
+              <SectionHeading
+                title={
+                  <>
+                    Quanto tempo e dinheiro <span className="text-gradient">o ArbiFlow poupa?</span>
+                  </>
+                }
+                subtitle="Arraste e simule o seu volume mensal no Mercado Livre."
+              />
+            </div>
+            <Reveal>
+              <RoiSimulator variant={variant} />
+            </Reveal>
+            <div className="mt-10 flex justify-center">{renderCta("simulator")}</div>
+          </div>
+        </section>
+
+        {/* 7 — OBJEÇÕES */}
         <section className="relative py-20 sm:py-28">
           <div className="mx-auto max-w-3xl px-4 sm:px-6">
             <SectionHeading title="Antes de clicar" />
@@ -300,19 +322,19 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           </div>
         </section>
 
-        {/* 6 — CTA FINAL */}
+        {/* 8 — CTA FINAL */}
         <section ref={finalRef} className="relative overflow-hidden px-4 py-24 sm:px-6 sm:py-32">
           <div
             className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(50%_60%_at_50%_100%,rgba(31,107,255,0.28),transparent_70%)]"
             aria-hidden
           />
           <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
-            <Eyebrow>Preço de lançamento</Eyebrow>
+            <Eyebrow>7 dias de garantia incondicional</Eyebrow>
             <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
               Você testou uma venda. <span className="text-gradient">Veja todas.</span>
             </h2>
             <p className="mt-5 max-w-xl text-muted text-pretty sm:text-lg">
-              A partir de R$ 19,90/mês.
+              A partir de R$ 79/mês. Risco zero.
             </p>
             {renderCta("final", "mt-9")}
             <p className="mt-4 text-xs text-muted">Você será direcionado ao site oficial do ArbiFlow.</p>
