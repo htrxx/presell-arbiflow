@@ -15,40 +15,40 @@ import { FlowDemo } from "./Demos";
 const STEPS = [
   {
     t: "Conecte sua conta",
-    d: "Produtos e vendas chegam automaticamente pela API oficial do marketplace.",
+    d: "Vendas importadas sozinhas.",
   },
   {
-    t: "Escaneie o código de barras",
-    d: "Pela câmera do celular, o produto entra no estoque com lote, custo e quantidade.",
+    t: "Bipe o código de barras",
+    d: "Produto no estoque com custo e lote.",
   },
   {
     t: "Veja o lucro real",
-    d: "Cada venda aparece com comissão, tarifa, frete e custo descontados, além de margem e ROI.",
+    d: "Margem e ROI em cada pedido.",
   },
 ];
 
 const EXTRAS = [
-  { icon: Store, t: "Várias contas, um estoque só" },
-  { icon: FileText, t: "DRE do mês pronto para imprimir" },
-  { icon: Bell, t: "Cada venda notificada no celular" },
+  { icon: Store, t: "Multicontas, um estoque" },
+  { icon: FileText, t: "DRE do mês pronto" },
+  { icon: Bell, t: "Venda notificada no celular" },
 ];
 
 const FAQ = [
   {
-    q: "Preciso cadastrar meus produtos manualmente?",
-    a: "Não. Ao conectar sua conta, produtos e vendas são importados automaticamente do marketplace. Você só cadastra os custos, quando necessário, para o cálculo do lucro real.",
+    q: "Preciso cadastrar produtos?",
+    a: "Não. Produtos e vendas são importados ao conectar sua conta. Você só informa o custo.",
   },
   {
-    q: "O cálculo usa as taxas reais de cada venda?",
-    a: "Sim. Para cada venda, o ArbiFlow desconta a comissão e as tarifas do marketplace, o frete pago por você e o custo do produto que você cadastrou. Despesas operacionais e embalagens entram no fechamento mensal.",
+    q: "Usa as taxas reais?",
+    a: "Sim: comissão, tarifa, frete e custo de cada venda. Despesas entram no fechamento do mês.",
   },
   {
-    q: "Meus dados estão seguros?",
-    a: "A conexão com o marketplace é feita pela API oficial, com uma autorização que você pode revogar a qualquer momento. O ArbiFlow não tem acesso à sua senha.",
+    q: "É seguro?",
+    a: "Conexão pela API oficial, sem acesso à sua senha. Você revoga quando quiser.",
   },
   {
     q: "Quanto custa?",
-    a: "Há dois planos, Standard e Pro, com preço promocional de lançamento a partir de R$ 19,90/mês. Multicontas com estoque sincronizado está incluso em todos.",
+    a: "A partir de R$ 19,90/mês no preço de lançamento. Multicontas em todos os planos.",
   },
 ];
 
@@ -108,15 +108,15 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.15fr_1fr]">
             <div className="flex flex-col items-start">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}>
-                <Eyebrow>Vai estrear no marketplace ou já vende todos os dias? Tenha controle desde o primeiro pedido.</Eyebrow>
+                <Eyebrow>Começando ou já vendendo? Controle desde o 1º pedido.</Eyebrow>
               </motion.div>
               <motion.h1
-                className="mt-4 font-display text-[2.35rem] font-semibold leading-[1.05] tracking-[-0.03em] text-balance sm:text-6xl"
+                className="mt-4 font-display text-[2.35rem] font-semibold leading-[1.05] tracking-[-0.03em] text-balance sm:text-5xl xl:text-6xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease, delay: 0.06 }}
               >
-                {h.title} <span className="text-gradient">{h.highlight}</span>
+                {h.title} <span className="text-gradient block">{h.highlight}</span>
               </motion.h1>
               <motion.p
                 className="mt-5 max-w-xl text-base leading-relaxed text-muted text-pretty sm:text-lg"
@@ -124,9 +124,9 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease, delay: 0.14 }}
               >
-                O painel do marketplace mostra quanto você vendeu. O ArbiFlow desconta{" "}
-                <span className="text-text">comissão, tarifa, frete e o custo do seu lote</span> em cada venda — e mostra
-                quanto realmente sobrou.
+                <span className="text-text">Bipe o código de barras</span>: o produto entra no estoque.{" "}
+                <span className="text-text">Mande um print</span>: a IA lança a compra.{" "}
+                <span className="text-text">Venda feita</span>: o lucro real aparece sozinho.
               </motion.p>
               <motion.div
                 className="mt-8 flex w-full flex-col gap-3 sm:w-auto"
@@ -140,7 +140,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                   onClick={() => track("presell_anchor_click", { target: "calculadora", variant })}
                   className="text-sm text-muted underline decoration-line underline-offset-4 hover:text-text hover:decoration-cyan lg:hidden"
                 >
-                  Ou faça o teste com a sua última venda ↓
+                  Ou teste com a sua venda ↓
                 </a>
               </motion.div>
             </div>
@@ -161,10 +161,10 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
             <SectionHeading
               title={
                 <>
-                  Planilha, sistema genérico <span className="text-gradient">ou ArbiFlow?</span>
+                  Planilha <span className="text-gradient">ou ArbiFlow?</span>
                 </>
               }
-              subtitle="Veja onde o seu tempo vai embora hoje — e como fica quando o sistema faz as contas por você."
+              subtitle="Toque e compare."
             />
           </div>
           <SpatialShowcaseSection variant={variant} renderCta={renderCta} />
@@ -182,10 +182,9 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                 align="left"
                 title={
                   <>
-                    O ArbiFlow faz essa conta <span className="text-gradient">por você.</span>
+                    3 passos. <span className="text-gradient">Zero planilha.</span>
                   </>
                 }
-                subtitle="Do código de barras ao lucro de cada venda, sem planilha no meio."
               />
               <ol className="flex flex-col gap-5">
                 {STEPS.map((s, i) => (
@@ -220,10 +219,10 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
             <SectionHeading
               title={
                 <>
-                  Não é promessa. <span className="text-gradient">É a tela de vendas real.</span>
+                  Não é promessa. <span className="text-gradient">É a tela real.</span>
                 </>
               }
-              subtitle="Cada pedido com custo, margem e ROI ao lado, e o status de envio em 1 clique."
+              subtitle="Custo, margem e ROI em cada pedido."
             />
             <Reveal className="mt-12">
               <BrowserFrame
@@ -308,13 +307,12 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
             aria-hidden
           />
           <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
-            <Eyebrow>Preço de lançamento por tempo limitado</Eyebrow>
+            <Eyebrow>Preço de lançamento</Eyebrow>
             <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
-              Você fez a conta de uma venda. <span className="text-gradient">Veja todas as outras.</span>
+              Você testou uma venda. <span className="text-gradient">Veja todas.</span>
             </h2>
             <p className="mt-5 max-w-xl text-muted text-pretty sm:text-lg">
-              Conheça as telas, compare os planos — a partir de R$ 19,90/mês no lançamento — e conecte sua conta para ver
-              o lucro real das próximas vendas.
+              A partir de R$ 19,90/mês.
             </p>
             {renderCta("final", "mt-9")}
             <p className="mt-4 text-xs text-muted">Você será direcionado ao site oficial do ArbiFlow.</p>

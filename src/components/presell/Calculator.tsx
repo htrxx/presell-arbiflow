@@ -122,8 +122,7 @@ export function ProfitCalculator({ variant }: { variant: string }) {
       </div>
 
       <p className="mt-4 text-xs leading-relaxed text-muted">
-        Valores de exemplo já preenchidos: troque pelos seus. O ArbiFlow faz essa conta sozinho, com as tarifas reais
-        de cada pedido, <span className="text-text">em todas as suas vendas</span>.
+        Troque pelos seus números. O ArbiFlow faz essa conta <span className="text-text">em todas as vendas, sozinho</span>.
       </p>
     </div>
   );

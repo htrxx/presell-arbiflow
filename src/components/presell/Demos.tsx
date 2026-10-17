@@ -167,7 +167,7 @@ export function FlowDemo() {
         {playing ? "Pausar demonstração" : "Reproduzir demonstração"}
       </button>
       <p className="max-w-sm text-center text-xs text-muted/80">
-        Demonstração ilustrativa do fluxo, com os valores de exemplo usados no site do ArbiFlow.
+        Demonstração ilustrativa.
       </p>
     </div>
   );

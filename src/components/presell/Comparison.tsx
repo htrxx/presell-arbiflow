@@ -88,11 +88,11 @@ function ArbiFlowVisual() {
 
 const PLANILHAS: ShowcaseSide<Side> = {
   id: "planilhas",
-  label: "Planilhas e sistemas",
-  eyebrow: "Como costuma ser",
-  title: "Horas de trabalho para um número que ninguém confia.",
+  label: "Planilhas",
+  eyebrow: "Hoje",
+  title: "Horas perdidas. Números que ninguém confia.",
   description:
-    "Planilha funciona até a operação crescer. Sistema genérico resolve nota fiscal, mas não entende comissão por faixa, custo de lote nem a rotina de quem vende no Mercado Livre.",
+    "Planilha e sistema genérico funcionam até a operação crescer. Depois, viram gargalo.",
   visual: <SpreadsheetVisual />,
   status: "Atualizado à mão",
   colors: {
@@ -103,19 +103,19 @@ const PLANILHAS: ShowcaseSide<Side> = {
     radial: "radial-gradient(ellipse 40% 35% at 15% 55%, rgba(239, 68, 68, 0.10), transparent 100%)",
   },
   items: [
-    { icon: Calculator, title: "Comissão e tarifa fixa mudam por faixa de preço, e você recalcula à mão." },
-    { icon: Receipt, title: "O frete real do Mercado Envios fica fora da conta e o lucro sai maior do que é." },
-    { icon: EyeOff, title: "Impostos, embalagem e despesas somem da planilha: parece lucro, é prejuízo." },
-    { icon: Layers, title: "Abrir o Mercado Livre conta por conta para ver pedidos e status." },
-    { icon: Copy, title: "Copiar pedidos e cancelamentos à mão — e sempre escapa algum." },
-    { icon: FileQuestion, title: "Fórmula quebrada, célula apagada, “final_v3”: qual versão está certa?" },
-    { icon: PackageX, title: "Conferir etiqueta no olho: pacote trocado ou pedido cancelado indo para a coleta." },
-    { icon: AlarmClockOff, title: "Perceber tarde que passou do horário de corte e arriscar a reputação." },
-    { icon: Keyboard, title: "Digitar cada compra do fornecedor, item por item." },
-    { icon: Unlink, title: "Venda que entra antes da compra ser lançada fica sem custo e distorce a margem." },
-    { icon: TrendingDown, title: "Fechar o mês juntando extrato, planilha e relatório que não batem." },
-    { icon: Boxes, title: "Estoque desatualizado: vender em uma conta o que já acabou na outra." },
-    { icon: Settings2, title: "Sistemas genéricos cheios de menus, sem custo por lote nem arbitragem." },
+    { icon: Calculator, title: "Taxa muda por faixa de preço: recálculo à mão." },
+    { icon: Receipt, title: "Frete do Mercado Envios fora da conta." },
+    { icon: EyeOff, title: "Imposto e embalagem esquecidos: lucro falso." },
+    { icon: Layers, title: "Uma aba do Mercado Livre para cada conta." },
+    { icon: Copy, title: "Pedido copiado à mão, cancelamento esquecido." },
+    { icon: FileQuestion, title: "Fórmula quebrada e “final_v3”: qual vale?" },
+    { icon: PackageX, title: "Etiqueta conferida no olho: pacote trocado." },
+    { icon: AlarmClockOff, title: "Horário de corte perdido, reputação em risco." },
+    { icon: Keyboard, title: "Compra do fornecedor digitada item a item." },
+    { icon: Unlink, title: "Venda sem custo lançado: margem distorcida." },
+    { icon: TrendingDown, title: "Fechamento do mês que nunca bate." },
+    { icon: Boxes, title: "Estoque desatualizado entre contas." },
+    { icon: Settings2, title: "Sistema genérico: menus demais, sem custo por lote." },
   ],
 };
 
@@ -123,9 +123,9 @@ const ARBIFLOW: ShowcaseSide<Side> = {
   id: "arbiflow",
   label: "ArbiFlow",
   eyebrow: "Com o ArbiFlow",
-  title: "A operação inteira em um painel que faz as contas.",
+  title: "Um painel que faz as contas por você.",
   description:
-    "Feito dentro de uma operação real de marketplace: as vendas chegam sozinhas, o custo é cruzado automaticamente e a expedição tem conferência por bipe.",
+    "Vendas chegam sozinhas. Custos cruzados na hora. Expedição conferida por bipe.",
   visual: <ArbiFlowVisual />,
   status: "Sincronizado",
   colors: {
@@ -138,33 +138,33 @@ const ARBIFLOW: ShowcaseSide<Side> = {
   items: [
     {
       icon: Calculator,
-      title: "Lucro líquido real, com custos ocultos",
-      text: "Comissão, tarifa fixa por faixa, frete do Mercado Envios, custo do produto e impostos descontados em cada venda.",
+      title: "Lucro real",
+      text: "Comissão, tarifa, frete e imposto descontados em cada venda.",
     },
     {
       icon: Volume2,
-      title: "Bip & Fala na expedição",
-      text: "Bipe a etiqueta pelo leitor ou pela câmera: o sistema confere o pedido, fala o nome do item e avisa se já foi enviado ou cancelado.",
+      title: "Bip & Fala",
+      text: "Bipou a etiqueta: ele confere o pedido e fala o item em voz alta.",
     },
     {
       icon: RefreshCw,
-      title: "Multicontas Mercado Livre sincronizadas",
-      text: "Pedidos, pagamentos, cancelamentos e envios de todas as contas chegam sozinhos, em um só painel.",
+      title: "Multicontas Mercado Livre",
+      text: "Todas as contas em um painel, sincronizadas sozinhas.",
     },
     {
       icon: Clock,
-      title: "Cronômetro do horário de corte",
-      text: "Cada pacote marcado como Atrasado, Despachar hoje (com contagem regressiva) ou Amanhã.",
+      title: "Cronômetro de corte",
+      text: "Contagem regressiva para despachar no prazo.",
     },
     {
       icon: ClipboardPaste,
-      title: "Compras lançadas por IA",
-      text: "Mande o print ou cole o texto do pedido do fornecedor: título, quantidade, preço e frete vão direto para o estoque.",
+      title: "Compras por IA",
+      text: "Mande o print do fornecedor. A IA lança no estoque.",
     },
     {
       icon: FileText,
-      title: "DRE e fechamento do mês",
-      text: "Faturamento, tarifas, fretes, custo das mercadorias e despesas até o lucro líquido, mês a mês.",
+      title: "DRE do mês",
+      text: "Lucro ou prejuízo do mês, em uma tela.",
     },
   ],
 };

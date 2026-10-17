@@ -18,8 +18,8 @@ export const HEADLINES = {
   },
   b: {
     angle: "problema",
-    title: "Você ainda calcula o lucro de cada venda",
-    highlight: "na planilha?",
+    title: "Cansado de planilhas e sistemas confusos?",
+    highlight: "A solução está aqui.",
   },
   c: {
     angle: "benefício",
