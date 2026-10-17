@@ -100,7 +100,7 @@ const PLANILHAS: ShowcaseSide<Side> = {
     glow: "bg-danger",
     ring: "border-l-red-500/50",
     icon: "text-danger",
-    radial: "radial-gradient(circle at 0% 50%, rgba(239, 68, 68, 0.12), transparent 55%)",
+    radial: "radial-gradient(ellipse 40% 35% at 15% 55%, rgba(239, 68, 68, 0.10), transparent 100%)",
   },
   items: [
     { icon: Calculator, title: "Comissão e tarifa fixa mudam por faixa de preço, e você recalcula à mão." },
@@ -133,7 +133,7 @@ const ARBIFLOW: ShowcaseSide<Side> = {
     glow: "bg-cyan",
     ring: "border-r-cyan/50",
     icon: "text-cyan",
-    radial: "radial-gradient(circle at 100% 50%, rgba(31, 107, 255, 0.18), transparent 55%)",
+    radial: "radial-gradient(ellipse 40% 35% at 85% 55%, rgba(31, 107, 255, 0.14), transparent 100%)",
   },
   items: [
     {

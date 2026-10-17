@@ -108,10 +108,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.15fr_1fr]">
             <div className="flex flex-col items-start">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}>
-                <p className="inline-flex items-center gap-2 rounded-full border border-cyan/25 bg-cyan/10 px-3.5 py-1.5 text-[13px] leading-snug text-cyan text-pretty">
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" aria-hidden />
-                  Vai estrear no marketplace ou já vende todos os dias? Tenha controle desde o primeiro pedido.
-                </p>
+                <Eyebrow>Vai estrear no marketplace ou já vende todos os dias? Tenha controle desde o primeiro pedido.</Eyebrow>
               </motion.div>
               <motion.h1
                 className="mt-4 font-display text-[2.35rem] font-semibold leading-[1.05] tracking-[-0.03em] text-balance sm:text-6xl"

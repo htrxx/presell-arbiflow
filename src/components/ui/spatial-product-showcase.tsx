@@ -75,7 +75,10 @@ const ANIMATIONS: { container: Variants; item: Variants; visual: (first: boolean
 // =========================================
 
 const BackgroundGradient = ({ radial }: { radial: string }) => (
-  <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+  <div
+    className="pointer-events-none absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)]"
+    aria-hidden
+  >
     <motion.div
       animate={{ background: radial }}
       transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
