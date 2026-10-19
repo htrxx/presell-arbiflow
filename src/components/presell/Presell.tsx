@@ -8,7 +8,6 @@ import { CTAS, HEADLINES, type CtaId, type HeadlineId } from "@/lib/presell";
 import { track } from "@/lib/tracking";
 import Analytics from "./Analytics";
 import BipFala from "./BipFala";
-import { ProfitCalculator } from "./Calculator";
 import SpatialShowcaseSection from "./Comparison";
 import { CtaLink } from "./CtaLink";
 import { FlowDemo } from "./Demos";
@@ -99,7 +98,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
       </header>
 
       <main>
-        {/* 1 — GANCHO + CALCULADORA (micro-compromisso: o visitante vê o problema nos próprios números) */}
+        {/* 1 — GANCHO + SIMULADOR (micro-compromisso: o visitante vê o retorno no próprio volume) */}
         <section ref={heroRef} className="relative overflow-hidden pb-16 pt-24 sm:pb-24 sm:pt-32">
           <div
             className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_70%_20%,rgba(31,107,255,0.22),transparent_70%),radial-gradient(40%_40%_at_10%_80%,rgba(69,227,255,0.08),transparent_70%)]"
@@ -136,11 +135,11 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
               >
                 {renderCta("hero")}
                 <a
-                  href="#calculadora"
-                  onClick={() => track("presell_anchor_click", { target: "calculadora", variant })}
+                  href="#simulador"
+                  onClick={() => track("presell_anchor_click", { target: "simulador", variant })}
                   className="text-sm text-muted underline decoration-line underline-offset-4 hover:text-text hover:decoration-cyan lg:hidden"
                 >
-                  Ou teste com a sua venda ↓
+                  Ou simule o seu volume ↓
                 </a>
                 <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
                   <span className="flex items-center gap-1.5">
@@ -158,7 +157,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, ease, delay: 0.2 }}
             >
-              <ProfitCalculator variant={variant} />
+              <RoiSimulator variant={variant} compact />
             </motion.div>
           </div>
         </section>
@@ -251,28 +250,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           <BipFala variant={variant} />
         </section>
 
-        {/* 6 — SIMULADOR DE RETORNO */}
-        <section className="relative py-20 sm:py-28">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="mx-auto mb-10 flex max-w-3xl flex-col items-center text-center">
-              <Eyebrow>Simulador de retorno</Eyebrow>
-              <SectionHeading
-                title={
-                  <>
-                    Quanto tempo e dinheiro <span className="text-gradient">o ArbiFlow poupa?</span>
-                  </>
-                }
-                subtitle="Arraste e simule o seu volume mensal no Mercado Livre."
-              />
-            </div>
-            <Reveal>
-              <RoiSimulator variant={variant} />
-            </Reveal>
-            <div className="mt-10 flex justify-center">{renderCta("simulator")}</div>
-          </div>
-        </section>
-
-        {/* 7 — OBJEÇÕES */}
+        {/* 6 — OBJEÇÕES */}
         <section className="relative py-20 sm:py-28">
           <div className="mx-auto max-w-3xl px-4 sm:px-6">
             <SectionHeading title="Antes de clicar" />
@@ -322,7 +300,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           </div>
         </section>
 
-        {/* 8 — CTA FINAL */}
+        {/* 7 — CTA FINAL */}
         <section ref={finalRef} className="relative overflow-hidden px-4 py-24 sm:px-6 sm:py-32">
           <div
             className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(50%_60%_at_50%_100%,rgba(31,107,255,0.28),transparent_70%)]"
@@ -331,7 +309,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <Eyebrow>7 dias de garantia incondicional</Eyebrow>
             <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
-              Você testou uma venda. <span className="text-gradient">Veja todas.</span>
+              Simulou o retorno? <span className="text-gradient">Veja na prática.</span>
             </h2>
             <p className="mt-5 max-w-xl text-muted text-pretty sm:text-lg">
               A partir de R$ 79/mês. Risco zero.

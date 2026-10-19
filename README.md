@@ -42,7 +42,7 @@ A variante vai em todos os eventos e é repassada ao destino como `pv`.
 ## Eventos (`dataLayer`, GA4 e Pixel)
 
 `presell_view`, `presell_cta_click` (com `position`), `presell_outbound_click`, `presell_scroll` (50/90%),
-`presell_faq_open`, `presell_anchor_click`, `presell_calc_interact`, `presell_compare_toggle`,
+`presell_faq_open`, `presell_anchor_click`, `presell_compare_toggle`,
 `presell_simulator_interact`, `presell_bipfala_listen`.
 
 UTMs, `fbclid`, `gclid` e `ttclid` são guardados na sessão e anexados ao link de destino,
