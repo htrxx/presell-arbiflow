@@ -3,7 +3,7 @@
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
 import { Lock, Plus, ShieldCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { BrowserFrame, Logo, Reveal, SectionHeading, ease } from "@/components/ui/primitives";
+import { Logo, Reveal, SectionHeading, ease } from "@/components/ui/primitives";
 import { CTAS, HEADLINES, type CtaId, type HeadlineId } from "@/lib/presell";
 import { track } from "@/lib/tracking";
 import Analytics from "./Analytics";
@@ -12,6 +12,7 @@ import SpatialShowcaseSection from "./Comparison";
 import { CtaLink } from "./CtaLink";
 import { FlowDemo } from "./Demos";
 import RoiSimulator from "./RoiSimulator";
+import ScreenGallery from "./ScreenGallery";
 
 const STEPS = [
   {
@@ -236,7 +237,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           </div>
         </section>
 
-        {/* 4 — PROVA: tela real de vendas com o lucro de cada pedido */}
+        {/* 4 — PROVA: telas reais do app (prints originais, sem recompressão) */}
         <section className="relative py-20 sm:py-28">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <SectionHeading
@@ -245,18 +246,9 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                   Não é promessa. <span className="text-gradient">É a tela real.</span>
                 </>
               }
-              subtitle="Margem e ROI em cada pedido."
             />
             <Reveal className="mt-12">
-              <BrowserFrame
-                src="/screens/app-vendas.webp"
-                alt="Tela Vendas & Envios do ArbiFlow com lucro real, margem e ROI por pedido"
-                url="arbiflow.com.br/vendas"
-                width={1600}
-                height={1000}
-                scrollable
-              />
-              <p className="mt-3 text-center text-xs text-muted md:hidden">Arraste para o lado para ver a tela inteira</p>
+              <ScreenGallery variant={variant} />
             </Reveal>
           </div>
         </section>

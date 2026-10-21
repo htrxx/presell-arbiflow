@@ -108,6 +108,7 @@ export function BrowserFrame({
   scrollable = false,
   width = 2000,
   height = 940,
+  unoptimized = false,
 }: {
   src: string;
   alt: string;
@@ -118,6 +119,8 @@ export function BrowserFrame({
   scrollable?: boolean;
   width?: number;
   height?: number;
+  /** Serve the source file as-is (no resize or re-encode), for pixel-exact screenshots. */
+  unoptimized?: boolean;
 }) {
   return (
     <div
@@ -140,6 +143,7 @@ export function BrowserFrame({
           alt={alt}
           width={width}
           height={height}
+          unoptimized={unoptimized}
           priority={priority}
           sizes={scrollable ? "(max-width: 768px) 820px, 1100px" : "(max-width: 768px) 100vw, 1100px"}
           className={`block h-auto ${scrollable ? "w-[820px] max-w-none md:w-full md:max-w-full" : "w-full"}`}
