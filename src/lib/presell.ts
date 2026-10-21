@@ -8,7 +8,7 @@
  */
 
 export const PRESELL_DESTINATION =
-  process.env.NEXT_PUBLIC_PRESELL_DESTINATION || "https://arbiflow.com.br/presell";
+  process.env.NEXT_PUBLIC_PRESELL_DESTINATION || "https://arbiflow-site.vercel.app/";
 
 export const HEADLINES = {
   a: {
@@ -17,9 +17,11 @@ export const HEADLINES = {
     highlight: "Não quanto sobrou.",
   },
   b: {
-    angle: "problema",
-    title: "Cansado de planilhas e sistemas confusos?",
-    highlight: "A solução está aqui.",
+    angle: "oferta",
+    title: "O sistema mais completo para virar a chave da sua operação.",
+    highlight: "Por menos de R$ 2 por dia.",
+    // Part of the highlight rendered as the price callout (green + marker).
+    accent: "R$ 2 por dia",
   },
   c: {
     angle: "benefício",

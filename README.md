@@ -19,7 +19,7 @@ Copie `.env.example` para `.env.local`:
 
 | Variável | Uso |
 |---|---|
-| `NEXT_PUBLIC_PRESELL_DESTINATION` | Destino dos botões (padrão: `https://arbiflow.com.br/presell`) |
+| `NEXT_PUBLIC_PRESELL_DESTINATION` | Destino dos botões (padrão: `https://arbiflow-site.vercel.app/`) |
 | `NEXT_PUBLIC_GA4_ID` | Google Analytics 4 (opcional) |
 | `NEXT_PUBLIC_META_PIXEL_ID` | Meta Pixel (opcional) |
 
@@ -33,7 +33,7 @@ Controlados pela URL do anúncio:
 | Parâmetro | Variante |
 |---|---|
 | `?h=a` | Título com foco em curiosidade |
-| `?h=b` (padrão) | Título com foco no problema |
+| `?h=b` (padrão) | Título com foco na oferta (menos de R$ 2 por dia) |
 | `?h=c` | Título com foco no benefício |
 | `?c=1` (padrão) / `?c=2` | CTA "Conhecer o ArbiFlow" / "Ver planos" (leva a `#planos`) |
 

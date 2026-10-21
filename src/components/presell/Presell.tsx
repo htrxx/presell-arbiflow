@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
 import { Lock, Plus, ShieldCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { BrowserFrame, Logo, Reveal, SectionHeading, ease } from "@/components/ui/primitives";
@@ -39,13 +39,42 @@ const FAQ = [
   },
   {
     q: "Quanto custa?",
-    a: "A partir de R$ 79/mês no anual: menos de R$ 3 por dia.",
+    a: "A partir de R$ 19,90/mês no preço de lançamento: menos de R$ 1 por dia.",
   },
   {
     q: "E se eu não gostar?",
     a: "7 dias de garantia. Não gostou, dinheiro de volta.",
   },
 ];
+
+/** Headline second line; when an `accent` is given, that part becomes the price callout (animated green text). */
+function HeadlineHighlight({ text, accent }: { text: string; accent?: string }) {
+  const reduce = useReducedMotion();
+  if (!accent || !text.includes(accent)) return <span className="text-gradient block">{text}</span>;
+  const [before, after] = text.split(accent);
+  return (
+    <span className="block">
+      {before}
+      <motion.span
+        className="inline-block whitespace-nowrap bg-[linear-gradient(100deg,#22c55e_0%,#22c55e_35%,#bbf7d0_50%,#22c55e_65%,#22c55e_100%)] bg-[length:250%_100%] bg-clip-text text-transparent [filter:drop-shadow(0_0_18px_rgba(34,197,94,0.45))]"
+        initial={{ opacity: 0, y: 10, backgroundPosition: "100% 0%" }}
+        animate={
+          reduce
+            ? { opacity: 1, y: 0 }
+            : { opacity: 1, y: 0, backgroundPosition: ["100% 0%", "-50% 0%"] }
+        }
+        transition={{
+          opacity: { duration: 0.5, delay: 0.5 },
+          y: { duration: 0.5, ease, delay: 0.5 },
+          backgroundPosition: { duration: 2.6, ease: "easeInOut", repeat: Infinity, repeatDelay: 1.2, delay: 0.9 },
+        }}
+      >
+        {accent}
+      </motion.span>
+      {after}
+    </span>
+  );
+}
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan">{children}</p>;
@@ -111,7 +140,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease, delay: 0.06 }}
               >
-                {h.title} <span className="text-gradient block">{h.highlight}</span>
+                {h.title} <HeadlineHighlight text={h.highlight} accent={"accent" in h ? h.accent : undefined} />
               </motion.h1>
               <motion.p
                 className="mt-5 max-w-xl text-base leading-relaxed text-muted text-pretty sm:text-lg"
@@ -296,11 +325,8 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <Eyebrow>7 dias de garantia incondicional</Eyebrow>
             <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
-              Margem protegida por <span className="text-gradient">menos de R$ 3 por dia.</span>
+              Controle de ponta a ponta por <span className="text-gradient">menos de R$ 2 por dia.</span>
             </h2>
-            <p className="mt-5 max-w-xl text-muted text-pretty sm:text-lg">
-              Teste 7 dias. Não gostou, dinheiro de volta.
-            </p>
             {renderCta("final", "mt-9")}
             <p className="mt-4 text-xs text-muted">Site oficial do ArbiFlow.</p>
           </Reveal>
