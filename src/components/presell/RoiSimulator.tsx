@@ -49,7 +49,7 @@ export default function RoiSimulator({ variant, compact = false }: { variant: st
           <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan/30 bg-cyan/10">
             <TrendingUp className="h-4 w-4 text-cyan" aria-hidden />
           </span>
-          <p className="font-display font-semibold">Quanto o ArbiFlow poupa na sua operação?</p>
+          <p className="font-display font-semibold">Quanto você recupera por mês?</p>
         </div>
       )}
       <div className="flex items-baseline justify-between gap-4">
@@ -104,7 +104,7 @@ export default function RoiSimulator({ variant, compact = false }: { variant: st
         </div>
       </div>
       <p className={`text-center text-[11px] text-muted/80 ${compact ? "mt-4" : "mt-5"}`}>
-        Estimativa com os parâmetros do simulador oficial do ArbiFlow. Resultados variam por operação.
+        Estimativa com os parâmetros oficiais do ArbiFlow.
       </p>
     </div>
   );

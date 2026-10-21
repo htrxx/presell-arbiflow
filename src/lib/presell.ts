@@ -30,7 +30,7 @@ export const HEADLINES = {
 
 /* Message match: the "plans" CTA lands directly on the pricing section of the main site. */
 export const CTAS = {
-  "1": { text: "Conhecer o ArbiFlow", path: "" },
+  "1": { text: "Garantir meu acesso", path: "" },
   "2": { text: "Ver planos", path: "#planos" },
 } as const;
 

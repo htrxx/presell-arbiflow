@@ -14,9 +14,8 @@ const SCANS = [
 ];
 
 const CHECKS = [
-  "Alerta em áudio se o pedido já foi enviado ou cancelado",
+  "Alerta se o pedido já foi enviado ou cancelado",
   "Status atualizado com 1 bipe",
-  "Velocidade e tom de voz ajustáveis",
 ];
 
 function Waveform({ active }: { active: boolean }) {
@@ -137,10 +136,10 @@ export default function BipFala({ variant }: { variant: string }) {
           <Volume2 className="h-4 w-4" aria-hidden /> Conferência auditada por IA
         </span>
         <h2 className="mt-5 font-display text-3xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-5xl">
-          Bip & Fala: <span className="text-gradient">o assistente que fala com você na expedição.</span>
+          Bip & Fala: <span className="text-gradient">expedição conferida por voz.</span>
         </h2>
         <p className="mt-4 max-w-lg leading-relaxed text-muted sm:text-lg">
-          Bipe a etiqueta com leitor USB ou pela câmera. A voz diz o item exato que vai no pacote.
+          Bipou a etiqueta, a voz confirma o item.
         </p>
         <ul className="mt-6 flex flex-col gap-3">
           {CHECKS.map((c) => (
@@ -160,7 +159,7 @@ export default function BipFala({ variant }: { variant: string }) {
               {speaking ? <Waveform active /> : <Play className="h-4 w-4 text-cyan" aria-hidden />}
               {speaking ? "Falando…" : "Ouvir um exemplo"}
             </button>
-            <p className="text-xs text-muted">Prévia com a voz do seu navegador. No app, voz neural do Google.</p>
+            <p className="text-xs text-muted">Prévia com a voz do navegador.</p>
           </div>
         )}
       </motion.div>

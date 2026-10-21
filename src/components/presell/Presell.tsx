@@ -31,23 +31,19 @@ const STEPS = [
 const FAQ = [
   {
     q: "Preciso cadastrar produtos?",
-    a: "Não. Produtos e vendas são importados ao conectar sua conta. Você só informa o custo.",
-  },
-  {
-    q: "Usa as taxas reais?",
-    a: "Sim: comissão, tarifa, frete e custo de cada venda. Despesas entram no fechamento do mês.",
+    a: "Não. Conectou a conta, puxou tudo. Você só informa o custo.",
   },
   {
     q: "É seguro?",
-    a: "Homologado com a API oficial do Mercado Livre, sem acesso à sua senha. Você revoga quando quiser.",
+    a: "API oficial do Mercado Livre. Sem acesso à sua senha.",
   },
   {
     q: "Quanto custa?",
-    a: "A partir de R$ 79/mês no plano anual (R$ 97 no mensal).",
+    a: "A partir de R$ 79/mês no anual: menos de R$ 3 por dia.",
   },
   {
     q: "E se eu não gostar?",
-    a: "7 dias de garantia incondicional. Um clique e o dinheiro volta.",
+    a: "7 dias de garantia. Não gostou, dinheiro de volta.",
   },
 ];
 
@@ -92,7 +88,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <Logo />
           <span className="flex items-center gap-1.5 text-xs text-muted">
-            <Lock className="h-3.5 w-3.5" aria-hidden /> Para vendedores de marketplace
+            <Lock className="h-3.5 w-3.5" aria-hidden /> Para sellers do Mercado Livre
           </span>
         </div>
       </header>
@@ -107,7 +103,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.15fr_1fr]">
             <div className="flex flex-col items-start">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}>
-                <Eyebrow>Começando ou já vendendo? Controle desde o 1º pedido.</Eyebrow>
+                <Eyebrow>Começando ou já escalando? Controle desde o 1º pedido.</Eyebrow>
               </motion.div>
               <motion.h1
                 className="mt-4 font-display text-[2.35rem] font-semibold leading-[1.05] tracking-[-0.03em] text-balance sm:text-5xl xl:text-6xl"
@@ -123,9 +119,8 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease, delay: 0.14 }}
               >
-                <span className="text-text">Bipe o código de barras</span>: o produto entra no estoque.{" "}
-                <span className="text-text">Mande um print</span>: a IA lança a compra.{" "}
-                <span className="text-text">Vendeu o último</span>: o Zero-Stock Shield pausa os anúncios irmãos.
+                Scanner, IA e Zero-Stock Shield: <span className="text-text">estoque sem furo e margem real</span> em
+                cada venda.
               </motion.p>
               <motion.div
                 className="mt-8 flex w-full flex-col gap-3 sm:w-auto"
@@ -134,13 +129,6 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                 transition={{ duration: 0.7, ease, delay: 0.22 }}
               >
                 {renderCta("hero")}
-                <a
-                  href="#simulador"
-                  onClick={() => track("presell_anchor_click", { target: "simulador", variant })}
-                  className="text-sm text-muted underline decoration-line underline-offset-4 hover:text-text hover:decoration-cyan lg:hidden"
-                >
-                  Ou simule o seu volume ↓
-                </a>
                 <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
                   <span className="flex items-center gap-1.5">
                     <ShieldCheck className="h-3.5 w-3.5 text-profit" aria-hidden /> API oficial do Mercado Livre
@@ -171,7 +159,6 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                   Planilha <span className="text-gradient">ou ArbiFlow?</span>
                 </>
               }
-              subtitle="Toque e compare."
             />
           </div>
           <SpatialShowcaseSection variant={variant} renderCta={renderCta} />
@@ -229,7 +216,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                   Não é promessa. <span className="text-gradient">É a tela real.</span>
                 </>
               }
-              subtitle="Lucro real, margem e ROI em cada pedido."
+              subtitle="Margem e ROI em cada pedido."
             />
             <Reveal className="mt-12">
               <BrowserFrame
@@ -309,13 +296,13 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
           <Reveal className="mx-auto flex max-w-2xl flex-col items-center text-center">
             <Eyebrow>7 dias de garantia incondicional</Eyebrow>
             <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
-              Simulou o retorno? <span className="text-gradient">Veja na prática.</span>
+              Margem protegida por <span className="text-gradient">menos de R$ 3 por dia.</span>
             </h2>
             <p className="mt-5 max-w-xl text-muted text-pretty sm:text-lg">
-              A partir de R$ 79/mês. Risco zero.
+              Teste 7 dias. Não gostou, dinheiro de volta.
             </p>
             {renderCta("final", "mt-9")}
-            <p className="mt-4 text-xs text-muted">Você será direcionado ao site oficial do ArbiFlow.</p>
+            <p className="mt-4 text-xs text-muted">Site oficial do ArbiFlow.</p>
           </Reveal>
         </section>
       </main>

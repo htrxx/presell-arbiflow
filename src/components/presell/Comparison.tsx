@@ -8,20 +8,13 @@ import {
   Calculator,
   ClipboardPaste,
   Clock,
-  Copy,
-  EyeOff,
-  FileQuestion,
   FileText,
   Keyboard,
-  Layers,
   PackageX,
-  Receipt,
   ShieldCheck,
   ScanBarcode,
-  Settings2,
   Sparkles,
   TrendingDown,
-  Unlink,
   Volume2,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
@@ -90,9 +83,9 @@ const PLANILHAS: ShowcaseSide<Side> = {
   id: "planilhas",
   label: "Planilhas",
   eyebrow: "Hoje",
-  title: "Horas perdidas. Números que ninguém confia.",
+  title: "Margem vazando pelo ralo.",
   description:
-    "Planilha e sistema genérico funcionam até a operação crescer. Depois, viram gargalo.",
+    "Planilha não escala.",
   visual: <SpreadsheetVisual />,
   status: "Atualizado à mão",
   colors: {
@@ -103,19 +96,12 @@ const PLANILHAS: ShowcaseSide<Side> = {
     radial: "radial-gradient(ellipse 40% 35% at 15% 55%, rgba(239, 68, 68, 0.10), transparent 100%)",
   },
   items: [
-    { icon: Calculator, title: "Taxa muda por faixa de preço: recálculo à mão." },
-    { icon: Receipt, title: "Frete do Mercado Envios fora da conta." },
-    { icon: EyeOff, title: "Imposto e embalagem esquecidos: lucro falso." },
-    { icon: Layers, title: "Uma aba do Mercado Livre para cada conta." },
-    { icon: Copy, title: "Pedido copiado à mão, cancelamento esquecido." },
-    { icon: FileQuestion, title: "Fórmula quebrada e “final_v3”: qual vale?" },
-    { icon: PackageX, title: "Etiqueta conferida no olho: pacote trocado." },
-    { icon: AlarmClockOff, title: "Horário de corte perdido, reputação em risco." },
-    { icon: Keyboard, title: "Compra do fornecedor digitada item a item." },
-    { icon: Unlink, title: "Venda sem custo lançado: margem distorcida." },
-    { icon: TrendingDown, title: "Fechamento do mês que nunca bate." },
-    { icon: Boxes, title: "Anúncio irmão ativo: venda sem estoque e cancelamento." },
-    { icon: Settings2, title: "Sistema genérico: menus demais, sem custo por lote." },
+    { icon: Calculator, title: "Taxa e frete calculados no chute." },
+    { icon: Boxes, title: "Furo de estoque entre anúncios." },
+    { icon: PackageX, title: "Etiqueta trocada na expedição." },
+    { icon: AlarmClockOff, title: "Coleta perdida, reputação no amarelo." },
+    { icon: Keyboard, title: "Compra digitada item a item." },
+    { icon: TrendingDown, title: "Fechamento que nunca bate." },
   ],
 };
 
@@ -123,9 +109,9 @@ const ARBIFLOW: ShowcaseSide<Side> = {
   id: "arbiflow",
   label: "ArbiFlow",
   eyebrow: "Com o ArbiFlow",
-  title: "Um painel que faz as contas por você.",
+  title: "Margem sob controle.",
   description:
-    "Vendas chegam sozinhas. Custos cruzados na hora. Expedição conferida por bipe.",
+    "Feito por seller, para seller.",
   visual: <ArbiFlowVisual />,
   status: "Sincronizado",
   colors: {
@@ -139,32 +125,32 @@ const ARBIFLOW: ShowcaseSide<Side> = {
     {
       icon: Calculator,
       title: "Lucro real",
-      text: "Comissão, tarifa, frete e imposto descontados em cada venda.",
+      text: "Centavo por centavo, em cada venda.",
     },
     {
       icon: Volume2,
       title: "Bip & Fala",
-      text: "Bipou a etiqueta: ele confere o pedido e fala o item em voz alta.",
+      text: "Bipou, a voz confere o pedido.",
     },
     {
       icon: ShieldCheck,
       title: "Zero-Stock Shield",
-      text: "Vendeu o último? Anúncios irmãos pausados na hora, em todas as contas.",
+      text: "Acabou o estoque, anúncios irmãos pausados.",
     },
     {
       icon: Clock,
       title: "Cronômetro de corte",
-      text: "Contagem regressiva para despachar no prazo.",
+      text: "Contagem regressiva até a coleta.",
     },
     {
       icon: ClipboardPaste,
       title: "Compras por IA",
-      text: "Mande o print do fornecedor. A IA lança no estoque.",
+      text: "Print do fornecedor vira estoque.",
     },
     {
       icon: FileText,
       title: "DRE do mês",
-      text: "Lucro ou prejuízo do mês, em uma tela.",
+      text: "Lucro ou prejuízo em 1 clique.",
     },
   ],
 };
@@ -197,7 +183,7 @@ export default function Comparison({
             className="group inline-flex min-h-12 items-center gap-2 rounded-xl border border-brand/50 bg-brand/10 px-5 text-sm font-semibold text-text transition-colors hover:bg-brand/20"
           >
             <Sparkles className="h-4 w-4 text-cyan" aria-hidden />
-            Ver como o ArbiFlow resolve
+            Ver a solução
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
           </button>
         ),
