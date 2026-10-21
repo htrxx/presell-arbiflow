@@ -42,7 +42,7 @@ export default function RoiSimulator({ variant, compact = false }: { variant: st
   return (
     <div
       id="simulador"
-      className={`card glow-border relative mx-auto w-full scroll-mt-6 ${compact ? "max-w-md p-5 sm:p-6" : "max-w-4xl p-5 sm:p-10"}`}
+      className={`card glow-border relative mx-auto w-full scroll-mt-6 ${compact ? "max-w-2xl p-5 sm:p-8" : "max-w-4xl p-5 sm:p-10"}`}
     >
       {compact && (
         <div className="mb-5 flex items-center gap-2">

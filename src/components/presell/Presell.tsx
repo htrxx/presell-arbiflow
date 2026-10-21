@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
-import { Lock, Plus, ShieldCheck } from "lucide-react";
+import { ChevronDown, Lock, MoveHorizontal, Plus, ShieldCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Logo, Reveal, SectionHeading, ease } from "@/components/ui/primitives";
 import { CTAS, HEADLINES, type CtaId, type HeadlineId } from "@/lib/presell";
@@ -127,16 +127,16 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
         {/* 1 — GANCHO + SIMULADOR (micro-compromisso: o visitante vê o retorno no próprio volume) */}
         <section ref={heroRef} className="relative overflow-hidden pb-16 pt-24 sm:pb-24 sm:pt-32">
           <div
-            className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_70%_20%,rgba(31,107,255,0.22),transparent_70%),radial-gradient(40%_40%_at_10%_80%,rgba(69,227,255,0.08),transparent_70%)]"
+            className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_45%_at_50%_15%,rgba(31,107,255,0.22),transparent_70%),radial-gradient(40%_35%_at_50%_85%,rgba(69,227,255,0.08),transparent_70%)]"
             aria-hidden
           />
-          <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.15fr_1fr]">
-            <div className="flex flex-col items-start">
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 px-4 sm:px-6">
+            <div className="flex max-w-4xl flex-col items-center text-center">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}>
                 <Eyebrow>Começando ou já escalando? Controle desde o 1º pedido.</Eyebrow>
               </motion.div>
               <motion.h1
-                className="mt-4 font-display text-[2.35rem] font-semibold leading-[1.05] tracking-[-0.03em] text-balance sm:text-5xl xl:text-6xl"
+                className="mt-4 font-display text-[2.35rem] font-semibold leading-[1.05] tracking-[-0.03em] text-balance sm:text-5xl lg:text-6xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease, delay: 0.06 }}
@@ -144,7 +144,7 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                 {h.title} <HeadlineHighlight text={h.highlight} accent={"accent" in h ? h.accent : undefined} />
               </motion.h1>
               <motion.p
-                className="mt-5 max-w-xl text-base leading-relaxed text-muted text-pretty sm:text-lg"
+                className="mt-5 max-w-xl text-base leading-relaxed text-muted text-balance sm:text-lg"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease, delay: 0.14 }}
@@ -153,13 +153,13 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
                 cada venda.
               </motion.p>
               <motion.div
-                className="mt-8 flex w-full flex-col gap-3 sm:w-auto"
+                className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease, delay: 0.22 }}
               >
                 {renderCta("hero")}
-                <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
+                <p className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-muted">
                   <span className="flex items-center gap-1.5">
                     <ShieldCheck className="h-3.5 w-3.5 text-profit" aria-hidden /> API oficial do Mercado Livre
                   </span>
@@ -170,11 +170,23 @@ export default function Presell({ headline, cta, variant }: { headline: Headline
               </motion.div>
             </div>
             <motion.div
-              className="flex justify-center lg:justify-end"
+              className="flex w-full flex-col items-center gap-3"
               initial={{ opacity: 0, y: 24, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, ease, delay: 0.2 }}
             >
+              <p className="flex flex-col items-center gap-1 text-sm font-medium text-cyan">
+                <span className="flex items-center gap-2">
+                  <MoveHorizontal className="h-4 w-4" aria-hidden /> Deslize a barra e simule o seu mês
+                </span>
+                <motion.span
+                  aria-hidden
+                  animate={{ y: [0, 4, 0] }}
+                  transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <ChevronDown className="h-4 w-4" />
+                </motion.span>
+              </p>
               <RoiSimulator variant={variant} compact />
             </motion.div>
           </div>
