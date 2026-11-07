@@ -6,12 +6,12 @@ import { useState } from "react";
 import { BrowserFrame, ease } from "@/components/ui/primitives";
 import { track } from "@/lib/tracking";
 
-/* Real app screenshots, served untouched (no resize or re-encode). */
+/* Real app screenshots at 2x (retina), served untouched (no resize or re-encode). */
 const SCREENS = [
-  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, w: 1600, h: 787, caption: "Faturamento, lucro e estoque em uma tela." },
-  { id: "vendas", label: "Vendas", icon: Truck, w: 1388, h: 646, caption: "Lucro real e margem de cada venda." },
-  { id: "estoque", label: "Estoque", icon: Boxes, w: 1394, h: 575, caption: "Estoque, compras a caminho e custo médio." },
-  { id: "relatorios", label: "Relatórios", icon: BarChart3, w: 1363, h: 744, caption: "Faturamento e lucro dia a dia." },
+  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, w: 2880, h: 1926, caption: "Faturamento, lucro e estoque em uma tela." },
+  { id: "vendas", label: "Vendas", icon: Truck, w: 2260, h: 1720, caption: "Lucro real e margem de cada venda." },
+  { id: "estoque", label: "Estoque", icon: Boxes, w: 2260, h: 1320, caption: "Estoque, compras a caminho e custo médio." },
+  { id: "relatorios", label: "Relatórios", icon: BarChart3, w: 2260, h: 1480, caption: "Lucro, margem e de onde vem o faturamento." },
 ] as const;
 
 export default function ScreenGallery({ variant }: { variant: string }) {
